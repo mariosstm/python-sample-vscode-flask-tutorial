@@ -35,3 +35,18 @@ steps:
     pip install pytest pytest-azurepipelines
     pytest
   displayName: 'pytest'
+- task: SonarQubePrepare@7
+  inputs:
+    SonarQube: 'azure-safe-development'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'safe-development_safe-development_ed9b4b95-dd1b-4335-8b99-d43e27399108'
+    cliProjectName: 'safe-development'
+    cliSources: 'server'
+#Run code analysis task
+- task: SonarQubeAnalyze@7
+
+#Publish Quality Gate Result task
+- task: SonarQubePublish@7
+  inputs:
+    pollingTimeoutSec: '300'
